@@ -1,4 +1,4 @@
-# ap-fits-headers
+# ap-preserve-header
 
 [![Test](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml)
 [![Coverage](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml)
@@ -20,12 +20,12 @@ This tool is part of the astrophotography pipeline. For comprehensive documentat
 
 - **[Pipeline Overview](https://github.com/jewzaam/ap-base/blob/main/docs/index.md)** - Full pipeline documentation
 - **[Workflow Guide](https://github.com/jewzaam/ap-base/blob/main/docs/workflow.md)** - Detailed workflow with diagrams
-- **[ap-fits-headers Reference](https://github.com/jewzaam/ap-base/blob/main/docs/tools/ap-fits-headers.md)** - API reference for this tool
+- **[ap-preserve-header Reference](https://github.com/jewzaam/ap-base/blob/main/docs/tools/ap-preserve-header.md)** - API reference for this tool
 
 ## Usage
 
 ```powershell
-python -m ap_fits_headers.preserve_headers <root_dir> --include KEY ... [--debug] [--dryrun] [--help]
+python -m ap_preserve_header.preserve_headers <root_dir> --include KEY ... [--debug] [--dryrun] [--help]
 ```
 
 Options:
@@ -48,7 +48,7 @@ This installs the package in editable mode along with all dependencies (includin
 ### From Git Repository (One-liner)
 
 ```powershell
-pip install git+https://github.com/jewzaam/ap-fits-headers.git
+pip install git+https://github.com/jewzaam/ap-preserve-header.git
 ```
 
 This installs the package directly from the GitHub repository without requiring a local checkout.
@@ -68,7 +68,7 @@ D:\Astrophotography\Data\CAMERA_ASI294MC\OPTIC_C8E\TARGET_M42\image.fits
 
 Running:
 ```powershell
-python -m ap_fits_headers.preserve_headers D:\Astrophotography\Data --include CAMERA OPTIC
+python -m ap_preserve_header.preserve_headers D:\Astrophotography\Data --include CAMERA OPTIC
 ```
 
 Will extract `CAMERA=ASI294MC` and `OPTIC=C8E` from the path and write them as FITS header keywords in the file. The `TARGET` key-value pair is ignored since it's not in the `--include` list.
