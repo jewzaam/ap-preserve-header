@@ -11,7 +11,7 @@ install-dev:
 	$(PYTHON) -m pip install -e ".[dev]"
 
 uninstall:
-	$(PYTHON) -m pip uninstall -y ap-fits-headers
+	$(PYTHON) -m pip uninstall -y ap-preserve-header
 
 clean:
 	rm -rf build/ dist/ *.egg-info
@@ -19,13 +19,13 @@ clean:
 	find . -type f -name "*.pyc" -delete 2>/dev/null || true
 
 format: install-dev
-	$(PYTHON) -m black ap_fits_headers tests
+	$(PYTHON) -m black ap_preserve_header tests
 
 lint: install-dev
-	$(PYTHON) -m flake8 --max-line-length=88 --extend-ignore=E203,W503,E501,F401 ap_fits_headers tests
+	$(PYTHON) -m flake8 --max-line-length=88 --extend-ignore=E203,W503,E501,F401 ap_preserve_header tests
 
 typecheck: install-dev
-	$(PYTHON) -m mypy ap_fits_headers
+	$(PYTHON) -m mypy ap_preserve_header
 
 test: install-dev
 	$(PYTHON) -m pytest
@@ -34,4 +34,4 @@ test-verbose: install-dev
 	$(PYTHON) -m pytest -v
 
 coverage: install-dev
-	$(PYTHON) -m pytest --cov=ap_fits_headers --cov-report=term
+	$(PYTHON) -m pytest --cov=ap_preserve_header --cov-report=term

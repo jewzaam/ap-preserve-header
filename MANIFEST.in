@@ -2,4 +2,4 @@ include README.md
 include LICENSE
 include Makefile
 include pyproject.toml
-recursive-include ap_fits_headers *.py
+recursive-include ap_preserve_header *.py
