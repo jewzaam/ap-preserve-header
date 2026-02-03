@@ -25,7 +25,7 @@ This tool is part of the astrophotography pipeline. For comprehensive documentat
 ## Usage
 
 ```powershell
-python -m ap_preserve_header.preserve_headers <root_dir> --include KEY ... [--debug] [--dryrun] [--help]
+python -m ap_preserve_header.preserve_headers <root_dir> --include KEY ... [--debug] [--dryrun] [--quiet] [--help]
 ```
 
 Options:
@@ -33,6 +33,7 @@ Options:
 - `--include KEY ...`: Specific header keys to include (required, explicit inclusion only)
 - `--debug`: Enable debug output
 - `--dryrun`: Perform dry run without actually modifying files
+- `--quiet`, `-q`: Suppress progress output
 - `--help`: Show help message and exit
 
 ## Installation
