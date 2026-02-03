@@ -457,10 +457,13 @@ class TestMain:
         import logging
 
         mock_logger = MagicMock()
-        with patch(
-            "sys.argv",
-            ["preserve_headers.py", "/root", "--include", "CAMERA", "--quiet"],
-        ), patch("logging.getLogger", return_value=mock_logger):
+        with (
+            patch(
+                "sys.argv",
+                ["preserve_headers.py", "/root", "--include", "CAMERA", "--quiet"],
+            ),
+            patch("logging.getLogger", return_value=mock_logger),
+        ):
             preserve_headers.main()
 
         mock_preserve.assert_called_once_with(
@@ -480,10 +483,13 @@ class TestMain:
         import logging
 
         mock_logger = MagicMock()
-        with patch(
-            "sys.argv",
-            ["preserve_headers.py", "/root", "--include", "CAMERA", "-q"],
-        ), patch("logging.getLogger", return_value=mock_logger):
+        with (
+            patch(
+                "sys.argv",
+                ["preserve_headers.py", "/root", "--include", "CAMERA", "-q"],
+            ),
+            patch("logging.getLogger", return_value=mock_logger),
+        ):
             preserve_headers.main()
 
         mock_preserve.assert_called_once_with(
@@ -505,17 +511,20 @@ class TestMain:
         import logging
 
         mock_logger = MagicMock()
-        with patch(
-            "sys.argv",
-            [
-                "preserve_headers.py",
-                "/root",
-                "--include",
-                "CAMERA",
-                "--debug",
-                "--quiet",
-            ],
-        ), patch("logging.getLogger", return_value=mock_logger):
+        with (
+            patch(
+                "sys.argv",
+                [
+                    "preserve_headers.py",
+                    "/root",
+                    "--include",
+                    "CAMERA",
+                    "--debug",
+                    "--quiet",
+                ],
+            ),
+            patch("logging.getLogger", return_value=mock_logger),
+        ):
             preserve_headers.main()
 
         mock_preserve.assert_called_once_with(
