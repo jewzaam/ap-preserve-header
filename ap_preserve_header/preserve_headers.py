@@ -10,6 +10,7 @@ but only if the header value doesn't already match the path value.
 import argparse
 import logging
 import re
+import sys
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -20,6 +21,10 @@ from ap_common.progress import progress_iter, ProgressTracker
 from xisf import XISF
 
 from . import config
+
+# Exit code constants
+EXIT_SUCCESS = 0
+EXIT_ERROR = 1
 
 # Module-level logger, configured in main()
 logger = logging.getLogger(__name__)
@@ -126,9 +131,7 @@ def read_xisf_header(filepath: Path) -> Dict[str, Any]:
                     if isinstance(value_list, list) and len(value_list) > 0:
                         # FITSKeywords values are lists of dicts
                         # with 'value' and 'comment'
-                        header_dict[key.upper()] = str(
-                            value_list[0].get("value", "")
-                        )
+                        header_dict[key.upper()] = str(value_list[0].get("value", ""))
                     else:
                         header_dict[key.upper()] = str(value_list) if value_list else ""
         return header_dict
@@ -404,12 +407,17 @@ def main() -> None:
     # Configure logging using ap-common's setup_logging
     setup_logging(name=__name__, debug=args.debug, quiet=args.quiet)
 
-    preserve_headers(
-        root_dir=args.root_dir,
-        include_headers=args.include,
-        dryrun=args.dryrun,
-        quiet=args.quiet,
-    )
+    try:
+        preserve_headers(
+            root_dir=args.root_dir,
+            include_headers=args.include,
+            dryrun=args.dryrun,
+            quiet=args.quiet,
+        )
+        sys.exit(EXIT_SUCCESS)
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        sys.exit(EXIT_ERROR)
 
 
 if __name__ == "__main__":

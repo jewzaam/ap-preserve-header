@@ -384,7 +384,9 @@ class TestMain:
     def test_main_calls_preserve_headers(self, mock_preserve):
         """Test that main function calls preserve_headers with correct arguments."""
         with patch("sys.argv", ["preserve_headers.py", "/root", "--include", "CAMERA"]):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -400,7 +402,9 @@ class TestMain:
             "sys.argv",
             ["preserve_headers.py", "/root", "--include", "CAMERA", "--debug"],
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -416,7 +420,9 @@ class TestMain:
             "sys.argv",
             ["preserve_headers.py", "/root", "--include", "CAMERA", "--dryrun"],
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -432,7 +438,9 @@ class TestMain:
             "sys.argv",
             ["preserve_headers.py", "/root", "--include", "CAMERA", "OPTIC"],
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -455,7 +463,9 @@ class TestMain:
                 "--dryrun",
             ],
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -476,7 +486,9 @@ class TestMain:
             ),
             patch("logging.getLogger", return_value=mock_logger),
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -500,7 +512,9 @@ class TestMain:
             ),
             patch("logging.getLogger", return_value=mock_logger),
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
@@ -533,7 +547,9 @@ class TestMain:
             ),
             patch("logging.getLogger", return_value=mock_logger),
         ):
-            preserve_headers.main()
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 0
 
         mock_preserve.assert_called_once_with(
             root_dir="/root",
