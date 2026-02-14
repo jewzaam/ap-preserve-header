@@ -1,10 +1,10 @@
 # ap-preserve-header
 
-[![Test](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml)
-[![Coverage](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml)
-[![Lint](https://github.com/jewzaam/ap-preserve-header/actions/workflows/lint.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/lint.yml)
-[![Format](https://github.com/jewzaam/ap-preserve-header/actions/workflows/format.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/format.yml)
-[![Typecheck](https://github.com/jewzaam/ap-preserve-header/actions/workflows/typecheck.yml/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/typecheck.yml)
+[![Test](https://github.com/jewzaam/ap-preserve-header/workflows/Test/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml)
+[![Coverage](https://github.com/jewzaam/ap-preserve-header/workflows/Coverage%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml)
+[![Lint](https://github.com/jewzaam/ap-preserve-header/workflows/Lint/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/lint.yml)
+[![Format](https://github.com/jewzaam/ap-preserve-header/workflows/Format%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/format.yml)
+[![Typecheck](https://github.com/jewzaam/ap-preserve-header/workflows/Typecheck/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/typecheck.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -38,7 +38,7 @@ Options:
 
 ## Installation
 
-### From Source (Development)
+### Development
 
 ```powershell
 make install-dev
@@ -46,19 +46,13 @@ make install-dev
 
 This installs the package in editable mode along with all dependencies (including `ap-common` from git) and development tools.
 
-### From Git Repository (One-liner)
+### From Git
 
 ```powershell
 pip install git+https://github.com/jewzaam/ap-preserve-header.git
 ```
 
 This installs the package directly from the GitHub repository without requiring a local checkout.
-
-### Uninstallation
-
-```powershell
-make uninstall
-```
 
 ## Examples
 
