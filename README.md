@@ -1,12 +1,7 @@
 # ap-preserve-header
 
-[![Test](https://github.com/jewzaam/ap-preserve-header/workflows/Test/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml)
-[![Coverage](https://github.com/jewzaam/ap-preserve-header/workflows/Coverage%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml)
-[![Lint](https://github.com/jewzaam/ap-preserve-header/workflows/Lint/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/lint.yml)
-[![Format](https://github.com/jewzaam/ap-preserve-header/workflows/Format%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/format.yml)
-[![Typecheck](https://github.com/jewzaam/ap-preserve-header/workflows/Typecheck/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/typecheck.yml)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Test](https://github.com/jewzaam/ap-preserve-header/workflows/Test/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/test.yml) [![Coverage](https://github.com/jewzaam/ap-preserve-header/workflows/Coverage%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/coverage.yml) [![Lint](https://github.com/jewzaam/ap-preserve-header/workflows/Lint/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/lint.yml) [![Format](https://github.com/jewzaam/ap-preserve-header/workflows/Format%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/format.yml) [![Type Check](https://github.com/jewzaam/ap-preserve-header/workflows/Type%20Check/badge.svg)](https://github.com/jewzaam/ap-preserve-header/actions/workflows/typecheck.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A simple tool for preserving FITS headers from file path key-value pairs into .fits and .xisf files.
 
@@ -70,6 +65,28 @@ Will extract `CAMERA=ASI294MC` and `OPTIC=C8E` from the path and write them as F
 
 **Note**: Multiple keys are specified as space-separated values after `--include`. The `nargs="+"` argument parser accepts one or more values.
 
-## License
+### Preserving Multiple Keys
 
-Apache-2.0
+```powershell
+# Preserve camera, filter, and exposure metadata
+python -m ap_preserve_header.preserve_headers D:\Astrophotography\10_Blink --include CAMERA FILTER EXPOSURE
+```
+
+For a file at:
+```
+D:\Astrophotography\10_Blink\CAMERA_ASI2600MM\FILTER_Ha\EXPOSURE_300\light_001.fits
+```
+
+This will write:
+- `CAMERA = 'ASI2600MM'`
+- `FILTER = 'Ha'`
+- `EXPOSURE = 300`
+
+### Dry Run Mode
+
+```powershell
+# Preview changes without modifying files
+python -m ap_preserve_header.preserve_headers D:\Astrophotography --include CAMERA OPTIC TARGET --dryrun
+```
+
+Shows which files would be updated and what header changes would be made, without actually writing to files.
