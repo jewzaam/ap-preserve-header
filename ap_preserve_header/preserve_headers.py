@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from astropy.io import fits
+from ap_common import NORMALIZED_HEADER_FILENAME
 from ap_common.fits import get_file_headers, update_xisf_headers
 from ap_common.logging_config import setup_logging
 from ap_common.progress import progress_iter, ProgressTracker
@@ -63,7 +64,7 @@ def extract_key_value_pairs(path: Path) -> Dict[str, str]:
     )
 
     # Remove the "filename" key that get_file_headers adds
-    parsed.pop("filename", None)
+    parsed.pop(NORMALIZED_HEADER_FILENAME, None)
 
     # Apply FITS-specific uppercase normalization to keys
     key_value_pairs: Dict[str, str] = {}

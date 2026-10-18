@@ -82,10 +82,10 @@ All bug fixes to existing functionality **must** follow TDD:
 
 ```bash
 # Run all tests
-make test
+make test-unit
 
 # Run with coverage
-make coverage
+make test-coverage
 
 # Run specific test
 pytest tests/test_preserve_headers.py::TestExtractKeyValuePairs::test_extract_simple_key_value
