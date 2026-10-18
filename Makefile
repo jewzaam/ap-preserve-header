@@ -1,40 +1,55 @@
-.PHONY: install install-dev install-no-deps uninstall clean format lint typecheck test test-verbose coverage default
+.PHONY: check help clean format install install-dev install-pipx uninstall uninstall-pipx
 
-PYTHON := python
+PACKAGE_NAME ?= ap_preserve_header
+PROJECT_NAME ?= ap-preserve-header
 
-default: format lint typecheck test coverage
+ifeq ($(OS),Windows_NT)
+    VENV_DIR ?= .venv
+    PYTHON ?= $(VENV_DIR)/Scripts/python.exe
+else
+    VENV_DIR ?= .venv
+    PYTHON ?= $(VENV_DIR)/bin/python
+endif
 
-install:
-	$(PYTHON) -m pip install .
+# Interpreter used to bootstrap the venv. CI overrides to `python` so
+# the venv is pinned to the matrix Python installed by setup-python
+# instead of the container's system python3 (see build/makefile.md).
+PY_SYS ?= python3
 
-install-dev:
-	$(PYTHON) -m pip install -e ".[dev]"
+# Test targets are pulled into make/test.mk for readability.
+-include make/test.mk
 
-install-no-deps:
-	$(PYTHON) -m pip install -e . --no-deps
+$(info venv: $(VENV_DIR))
 
-uninstall:
-	$(PYTHON) -m pip uninstall -y ap-preserve-header
+check: test-format test-lint test-typecheck test-unit test-coverage  ## Run full quality gate (default)
 
-clean:
+.DEFAULT_GOAL := check
+
+help:  ## Show available targets
+	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-32s\033[0m %s\n", $$1, $$2}'
+
+$(PYTHON):
+	$(PY_SYS) -m venv $(VENV_DIR)
+
+clean:  ## Remove build artifacts and caches
 	rm -rf build/ dist/ *.egg-info
 	find . -type d -name __pycache__ -exec rm -r {} + 2>/dev/null || true
 	find . -type f -name "*.pyc" -delete 2>/dev/null || true
 
-format: install-dev
-	$(PYTHON) -m black ap_preserve_header tests
+format: install-dev  ## Rewrite sources with black
+	$(PYTHON) -m black $(PACKAGE_NAME) tests
 
-lint: install-dev
-	$(PYTHON) -m flake8 --max-line-length=88 --extend-ignore=E203,W503 ap_preserve_header tests
+install: $(PYTHON)  ## Install into the local venv
+	$(PYTHON) -m pip install .
 
-typecheck: install-dev
-	$(PYTHON) -m mypy ap_preserve_header
+install-dev: $(PYTHON)  ## Editable install + dev extras
+	$(PYTHON) -m pip install -e ".[dev]"
 
-test: install-dev
-	$(PYTHON) -m pytest
+install-pipx:  ## Install globally via pipx
+	python3 -m pipx install . --force
 
-test-verbose: install-dev
-	$(PYTHON) -m pytest -v
+uninstall: $(PYTHON)  ## Uninstall from the local venv
+	$(PYTHON) -m pip uninstall -y $(PROJECT_NAME)
 
-coverage: install-dev
-	$(PYTHON) -m pytest --cov=ap_preserve_header --cov-report=term
+uninstall-pipx:  ## Uninstall the pipx install
+	python3 -m pipx uninstall $(PROJECT_NAME)

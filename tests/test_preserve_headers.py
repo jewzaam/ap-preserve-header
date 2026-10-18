@@ -562,3 +562,24 @@ class TestMain:
         mock_setup_logging.assert_called_once_with(
             name="ap_preserve_header.preserve_headers", debug=True, quiet=True
         )
+
+    @patch(
+        "ap_preserve_header.preserve_headers.preserve_headers",
+        side_effect=ValueError("boom"),
+    )
+    def test_main_error_exits_with_error_code(self, mock_preserve):
+        """An exception from preserve_headers exits EXIT_ERROR."""
+        with patch("sys.argv", ["preserve_headers.py", "/root", "--include", "CAMERA"]):
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == preserve_headers.EXIT_ERROR
+
+    @patch("ap_preserve_header.preserve_headers.preserve_headers")
+    def test_main_missing_include_exits_usage_error(self, mock_preserve):
+        """--include is required; omitting it is an argparse usage error."""
+        with patch("sys.argv", ["preserve_headers.py", "/root"]):
+            with pytest.raises(SystemExit) as exc_info:
+                preserve_headers.main()
+            assert exc_info.value.code == 2
+
+        mock_preserve.assert_not_called()
